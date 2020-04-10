@@ -1,26 +1,30 @@
 #include <stdio.h>
-
-#define NR_OF_DIGITS 1002 // length of the file
+#include <stdlib.h>
 
 int main () {
-    int c;
     FILE *file;
+    char buf[1002];
+
     file = fopen("e.txt", "r");
-    char buffer[NR_OF_DIGITS];
 
     if(file) {
-        fscanf(file, "%s", buffer);
+        fscanf(file, "%s", buf);
     } else {
         printf("File loading went wrong!");
     }
 
-    // int i = 0;
-    // while(i < NR_OF_DIGITS) {
-    //     printf(buffer[i]);
-    // }
-    // printf("\n");
+    printf("%s\n", buf);
 
-    printf("%s\n", buffer);
+    // Get a 10-digit part of e, starting at index 2
+    char slice[12];
+    sprintf(slice, "%.10s\n", buf+2);
+
+    printf("slice: %s\n", slice);
+    char *ptr;
+    long candidate;
+    
+    candidate = strtol(slice, &ptr, 10);
+    printf("candidate: %lu\n", candidate);
 
     fclose(file);
     return 0;
